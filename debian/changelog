@@ -1,4 +1,4 @@
-zabbix-smartctl (1.5debian2017071601) UNRELEASED; urgency=low
+zabbix-smartctl (1.5debian2017071602) UNRELEASED; urgency=low
 
   [ Alexey Vazhnov ]
   * Initial release.
