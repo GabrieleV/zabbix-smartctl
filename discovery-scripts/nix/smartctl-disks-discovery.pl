@@ -64,8 +64,12 @@ else {
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
         my ($disk_name) = $line =~ /(\/(.+?))(?:$|\s)/;
+		my ($old_disk_name) = $disk_name;
 		if ( $disk_name =~ m/\/dev\/sd/ ) {
 			$disk_name = `find -L /dev/disk/by-path/ -samefile $disk_name`;
+			if ( $disk_name eq '' ) {
+				$disk_name = $old_disk_name;
+			}
 		}
         my ($disk_args) = $line =~ /(-d [A-Za-z0-9,\+]+)/;
 
