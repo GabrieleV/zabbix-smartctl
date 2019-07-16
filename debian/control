@@ -4,10 +4,10 @@ Priority: extra
 Maintainer: Alexey Vazhnov <vazhnov@yandex.ru>
 Build-Depends: debhelper (>= 8.0.0)
 Standards-Version: 3.9.8
-Homepage: https://github.com/v-zhuravlev/zbx-smartctl
-Vcs-Git: https://github.com/v-zhuravlev/zbx-smartctl.git
+Homepage: https://github.com/GabrieleV/zabbix-smartctl
+Vcs-Git: https://github.com/GabrieleV/zabbix-smartctl.git
 
-Package: zabbix-agent-extra-smartctl
+Package: zabbix-smartctl
 Architecture: all
 Depends: perl, zabbix-agent, smartmontools, ${misc:Depends}
 Description: Monitoring HDD/SSD smart with zabbix agent
