@@ -51,7 +51,8 @@ if ( $^O eq 'darwin' ) {    # if MAC OSX (limited support, consider to use smart
 }
 else {
     foreach my $line (@{[
-        `for L in \$(find /dev/disk/by-path/  -type l | grep -v '\\-part.\$'| sort -n ); do echo "\$L -d sat # \$L  [SAT], ATA device"; done`
+		`$smartctl_cmd --scan-open`,
+		`$smartctl_cmd --scan-open -dnvme`
         ]}) {
 
         #my $testline = "# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open" ;
@@ -63,6 +64,9 @@ else {
         #"# /dev/sdc -d usbjmicron # /dev/sdc [USB JMicron], ATA device open "
 
         my ($disk_name) = $line =~ /(\/(.+?))(?:$|\s)/;
+		if ( $disk_name =~ m/\/dev\/sd/ ) {
+			$disk_name = `find -L /dev/disk/by-path/ -samefile $disk_name`;
+		}
         my ($disk_args) = $line =~ /(-d [A-Za-z0-9,\+]+)/;
 
         if ( $disk_name and $disk_args ) {
