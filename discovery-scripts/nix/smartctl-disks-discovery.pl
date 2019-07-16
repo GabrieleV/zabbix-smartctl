@@ -66,7 +66,7 @@ else {
         my ($disk_name) = $line =~ /(\/(.+?))(?:$|\s)/;
 		my ($old_disk_name) = $disk_name;
 		if ( $disk_name =~ m/\/dev\/sd/ ) {
-			$disk_name = `if [[ -d /dev/disk/by-path/ ]]; then find -L /dev/disk/by-path/ -samefile $disk_name ; fi`;
+			$disk_name = `if [ -d /dev/disk/by-path/ ]; then find -L /dev/disk/by-path/ -samefile $disk_name ; fi`;
 			if ( $disk_name eq '' ) {
 				$disk_name = $old_disk_name;
 			}
