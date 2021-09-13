@@ -1,0 +1,67 @@
+---
+- name: "Install smartmontools"
+  package:
+    name: smartmontools
+    state: latest
+
+- name: "Copy sudoers file"
+  copy:
+    src: ../files/sudoers_zabbix_smartctl
+    dest: /etc/sudoers.d/zabbix_smartctl
+    validate: "visudo -cf %s"
+    mode: 0440
+
+- name: "Check if zabbix_agent2 exists"
+  stat:
+    path: /etc/zabbix/zabbix_agent2.conf
+  register: zabbix_agent2_result
+
+- name: "If zabbix agent and /etc/zabbix/zabbix_agentd.d does not exist, create it"
+  file:
+    path: /etc/zabbix/zabbix_agentd.d
+    state: directory
+    mode: 755
+  when: not zabbix_agent2_result.stat.exists
+
+- name: "If zabbix2 agent and /etc/zabbix/zabbix_agent2.d does not exist, create it"
+  file:
+    path: /etc/zabbix/zabbix_agent2.d
+    state: directory
+    mode: 755
+  when: zabbix_agent2_result.stat.exists
+
+- name: "Copy agent config for zabbix"
+  copy:
+    src: ../files/zabbix_smartctl.conf
+    dest: /etc/zabbix/zabbix_agentd.d/zabbix_smartctl.conf
+  when: not zabbix_agent2_result.stat.exists
+
+- name: "Copy agent config for zabbix2"
+  copy:
+    src: ../files/zabbix_smartctl.conf
+    dest: /etc/zabbix/zabbix_agent2.d/zabbix_smartctl.conf
+  when: zabbix_agent2_result.stat.exists
+
+- name: "Create scripts directory"
+  file:
+    path: /etc/zabbix/scripts
+    state: directory
+
+- name: "Copy script"
+  copy:
+    src: ../files/smartctl-disks-discovery.pl
+    dest: /etc/zabbix/scripts/smartctl-disks-discovery.pl
+    owner: zabbix
+    group: zabbix
+    mode: 0744
+
+- name: "Restart zabbix-agent2"
+  service:
+    name: zabbiz-agent2
+  when: zabbix_agent2_result.stat.exists
+
+- name: "Restart zabbix-agent"
+  service:
+    name: zabbix-agent
+    state: restarted
+  when: not zabbix_agent2_result.stat.exists

@@ -1,5 +1,10 @@
 # zbx-smartctl
 
+## Project status
+
+No active maintenance is provided for this project from my side. PRs are accepted though. Also, please let me know if you want to become a contributor or maintainer of this project.
+To monitor disks S.M.A.R.T. in Zabbix 5.4+, take a look at built-in agent 2 module: https://git.zabbix.com/projects/ZBX/repos/zabbix/browse/templates/module/smart_agent2
+
 ## Description
 
 This is the template and discovery scripts for monitoring disks SMART attributes using smartmontools in Zabbix.  
@@ -63,6 +68,9 @@ zabbix ALL= (ALL) NOPASSWD: SMARTCTL, SMARTCTL_DISCOVERY
 Defaults!SMARTCTL !logfile, !syslog, !pam_session
 Defaults!SMARTCTL_DISCOVERY !logfile, !syslog, !pam_session
 ```
+```text
+chmod 440 /etc/sudoers.d/sudoers_zabbix_smartctl
+```
 
 - Copy `zabbix_smartctl.conf` to `/etc/zabbix/zabbix_agentd.d`
 - Copy script `smartctl-disks-discovery.pl` to `/etc/zabbix/scripts`
@@ -85,9 +93,10 @@ You can create .deb package `zabbix-agent-extra-smartctl` for Debian/Ubuntu dist
 dpkg-buildpackage -tc -Zgzip
 ```
 
-#### Ansible playbook
+#### Ansible Role
 
-There is an ansible playbook available in this repo, feel free to try it.
+There is an ansible role available in this repo, feel free to try it.
+To build the role run create_ansible_role.sh script then copy ansible-role-zabbix-smartctl to your ansible/roles directory
 
 ### Windows
 

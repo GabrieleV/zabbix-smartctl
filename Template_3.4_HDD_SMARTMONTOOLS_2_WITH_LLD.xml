@@ -305,6 +305,7 @@ Setting this macro doesn't prevent any automatic attempts to discover disks usin
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
 https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
 For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For Kingston disks, mapped to 'ID 5 Retired Block Count'&#13;
 For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
@@ -317,7 +318,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
+                                    <params>(?:5 Reallocate.+|5 Retired_Block_Count.+|Elements in grown defect list:)(?:[\t ]+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -559,7 +560,7 @@ https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes</descri
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units>°С</units>
+                            <units>°C</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
@@ -1193,6 +1194,7 @@ Setting this macro doesn't prevent any automatic attempts to discover disks usin
                             <description>Count of reallocated sectors. The raw value represents a count of the bad sectors that have been found and remapped.Thus, the higher the attribute value, the more sectors the drive has had to reallocate. This value is primarily used as a metric of the life expectancy of the drive; a drive which has had any reallocations at all is significantly more likely to fail in the immediate months.&#13;
 https://en.wikipedia.org/wiki/S.M.A.R.T.#Known_ATA_S.M.A.R.T._attributes &#13;&#13;
 For SATA disks, mapped to 'ID 5 Reallocated Sectors Count'&#13;
+For Kingston disks, mapped to 'ID 5 Retired Block Count'&#13;
 For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <inventory_link>0</inventory_link>
                             <applications>
@@ -1205,7 +1207,7 @@ For SAS disks, number of 'Elements in grown defect list' is used.</description>
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:5 Reallocate.+|Elements in grown defect list:.+)([0-9]+)
+                                    <params>(?:5 Reallocate.+|5 Retired_Block_Count.+|Elements in grown defect list:)(?:[\t ]+)([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1324,7 +1326,7 @@ NVMe: 'Available Spare:' value is used, where 100% idicated new drive and 0% ind
                             <preprocessing>
                                 <step>
                                     <type>5</type>
-                                    <params>(?:(?:177 Wear_Leveling_Count|202 Percent_Lifetime_Used|233 Media_Wearout_Indicator|231 SSD_Life_Left) +0x[0-9a-z]+|Available Spare:) +([0-9]+)
+                                    <params>(?:(?:177 Wear_Leveling_Count|202 Percent_Lifetime_Used|202 Percent_Lifetime_Remain|230 Media_Wearout_Indicator|233 Media_Wearout_Indicator|231 SSD_Life_Left) +0x[0-9a-z]+|Available Spare:) +([0-9]+)
 \1</params>
                                 </step>
                             </preprocessing>
@@ -1346,7 +1348,7 @@ NVMe: 'Available Spare:' value is used, where 100% idicated new drive and 0% ind
                             <status>0</status>
                             <value_type>3</value_type>
                             <allowed_hosts/>
-                            <units>°С</units>
+                            <units>°C</units>
                             <snmpv3_contextname/>
                             <snmpv3_securityname/>
                             <snmpv3_securitylevel>0</snmpv3_securitylevel>
