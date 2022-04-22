@@ -9,7 +9,7 @@ Vcs-Git: https://github.com/GabrieleV/zabbix-smartctl.git
 
 Package: zabbix-smartctl
 Architecture: all
-Depends: perl, zabbix-agent, smartmontools, ${misc:Depends}
+Depends: perl, zabbix-agent, smartmontools, ${misc:Depends}, python-is-python3
 Description: Monitoring HDD/SSD smart with zabbix agent
  Additional scripts and confgurations files for zabbix-agent
  and sudoers, for monitoring HDD/SSD smart atributes.
